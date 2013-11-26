@@ -48,12 +48,12 @@ Now the lexer can be accessed via pygments.
 `pygmentize` can be used to verify that the lexer was properly
 installed. Since both W3C and IETF EBNF file formats use the `.ebnf`
 extension, it is recommended to explicitly specify the W3C EBNF lexer
-using the `-l w3c\_ebnf` argument.
+using the `-l w3c_ebnf` argument.
 
 To run `pygmentize` on the provided ebnf.ebnf grammar:
 
 ```
-pygmentize -f html -l w3c\_ebnf -O full ebnf.ebnf > temp.html
+pygmentize -f html -l w3c_ebnf -O full ebnf.ebnf > temp.html
 ```
 
 and view the results in any browser.
@@ -62,3 +62,4 @@ and view the results in any browser.
 [pygments]: http://pygments.org/
 [EBNF]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [RFC5234]: http://tools.ietf.org/html/rfc5234
+[setuptools]: https://pypi.python.org/pypi/setuptools
