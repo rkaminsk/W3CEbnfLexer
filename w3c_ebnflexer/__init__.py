@@ -12,7 +12,7 @@ class W3CEbnfLexer(RegexLexer):
 
     Informal specification: <http://www.w3.org/TR/REC-xml/#sec-notation>.
 
-    Based on the pygments EbnfLexer for the IETF EBNF Specification.
+    Based on the pygments EbnfLexer for the ISO14977:1996 EBNF Specification.
 
     """
 

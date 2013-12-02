@@ -5,7 +5,8 @@ by the W3C.
 
 An informal definition of the W3C EBNF format is available at
 http://www.w3.org/TR/REC-xml/#sec-notation. Note that the W3C EBNF is
-*not* the same as the IETF EBNF format defined in [RFC5234][].
+*not* the same as the ISO EBNF format defined in [ISO/IEC
+14977:1996][ISO14977].
 
 It can be used to produce the following
 
@@ -46,14 +47,14 @@ python setup.py
 Now the lexer can be accessed via pygments.
 
 `pygmentize` can be used to verify that the lexer was properly
-installed. Since both W3C and IETF EBNF file formats use the `.ebnf`
+installed. Since both W3C and ISO EBNF file formats use the `.ebnf`
 extension, it is recommended to explicitly specify the W3C EBNF lexer
 using the `-l w3c_ebnf` argument.
 
-To run `pygmentize` on the provided ebnf.ebnf grammar:
+To run `pygmentize` on the provided w3c.ebnf grammar:
 
 ```
-pygmentize -f html -l w3c_ebnf -O full ebnf.ebnf > temp.html
+pygmentize -f html -l w3c_ebnf -O full w3c.ebnf > temp.html
 ```
 
 and view the results in any browser.
@@ -61,5 +62,5 @@ and view the results in any browser.
 
 [pygments]: http://pygments.org/
 [EBNF]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
-[RFC5234]: http://tools.ietf.org/html/rfc5234
+[ISO14977]: http://www.iso.org/iso/catalogue_detail.htm?csnumber=26153
 [setuptools]: https://pypi.python.org/pypi/setuptools
