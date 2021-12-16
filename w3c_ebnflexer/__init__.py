@@ -29,7 +29,8 @@ class W3CEbnfLexer(RegexLexer):
             (r'::=', Operator, 'production'),
         ],
         'production': [
-            (r'\n', Text.Break, '#pop'),
+            (r'(?=[a-zA-Z][a-zA-Z0-9_\-]*\s*::=)', Text, '#pop'),
+            (r'\n', Text.Break),
             include('whitespace'),
             include('comment_start'),
             include('identifier'),
