@@ -23,25 +23,17 @@ class W3CEbnfLexer(RegexLexer):
 
     tokens = {
         'root': [
-            include('whitespace'),
-            include('comment_start'),
-            include('identifier'),
-            (r'::=', Operator, 'production'),
-        ],
-        'production': [
-            (r'(?=[a-zA-Z][a-zA-Z0-9_\-]*\s*::=)', Text, '#pop'),
+            (r'::=', Operator),
             (r'\n', Text.Break),
             include('whitespace'),
-            include('comment_start'),
+            (r'\/\*', Comment.Multiline, 'comment'),
             include('identifier'),
             include('range_start'),
             include('codepoint'),
             (r'"[^"]*"', String.Double),
             (r"'[^']*'", String.Single),
-            # (r'(\?[^?]*\?)', Name.Entity),
             (r'[()]', Punctuation),
             (r'[-|+*?]', Operator),
-            # (r';', Punctuation, '#pop'),
         ],
         'range_start': [
             (r'(\[)(\^?)', bygroups(Punctuation, Operator), 'range'),
@@ -62,16 +54,36 @@ class W3CEbnfLexer(RegexLexer):
         'whitespace': [
             (r'\s+', Text),
         ],
-        'comment_start': [
-            (r'\/\*', Comment.Multiline, 'comment'),
-        ],
         'comment': [
-            (r'[^*\/]', Comment.Multiline),
-            include('comment_start'),
             (r'\*\/', Comment.Multiline, '#pop'),
+            (r'\/\*', Comment.Multiline, '#push'),
+            (r'[^*\/]+', Comment.Multiline),
             (r'[*\/]', Comment.Multiline),
         ],
         'identifier': [
             (r'([a-zA-Z][a-zA-Z0-9_\-]*)', Name),
         ],
     }
+
+    def get_tokens_unprocessed(self, text, stack=('root',)):
+        '''
+        This combines tokens of multi-line comments to avoid problems with
+        latex's minted package.
+        '''
+        comment = None
+        for index, token, value in RegexLexer.get_tokens_unprocessed(self, text, stack):
+            if token == Comment.Multiline:
+                if not comment:
+                    comment = [index, token, value]
+                else:
+                    comment[2] += value
+            else:
+                if comment:
+                    yield comment[0], comment[1], comment[2]
+                    comment = None
+
+                yield index, token, value
+
+        if comment:
+            yield comment[0], comment[1], comment[2]
+            comment = None

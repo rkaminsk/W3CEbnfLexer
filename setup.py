@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pygments_w3c_ebnf',
-    version='0.1',
+    version='0.2',
     packages=find_packages(),
     description='A pygments lexer for the Extended Backus-Naur Format used by the W3C',
     url='https://github.com/rkaminsk/W3CEbnfLexer',
